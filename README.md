@@ -196,4 +196,4 @@ This template uses [Email.js](https://www.emailjs.com/) for handling contact for
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.# my-nextjs-portfolio4.
