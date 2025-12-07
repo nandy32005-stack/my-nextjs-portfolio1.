@@ -1,18 +1,17 @@
 "use client";
 
 import { useState, useMemo } from "react";
-
 import { PageHeader } from "@/components/page-header";
 import { ProjectsTabs } from "@/components/projects/projects-tabs";
 import { ProjectsGrid } from "@/components/projects/projects-grid";
 import { DATA } from "@/data";
 
 const ProjectsPage = () => {
-  const allProjects = DATA.projects.work;
+  const allProjects = DATA.projects?.work || [];
 
   const categories = useMemo(
     () => ["All", ...new Set(allProjects.map((project) => project.category))],
-    [allProjects],
+    [allProjects]
   );
 
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -21,10 +20,8 @@ const ProjectsPage = () => {
     () =>
       selectedCategory === "All"
         ? allProjects
-        : allProjects.filter(
-            (project) => project.category === selectedCategory,
-          ),
-    [selectedCategory, allProjects],
+        : allProjects.filter((project) => project.category === selectedCategory),
+    [selectedCategory, allProjects]
   );
 
   return (
@@ -37,7 +34,12 @@ const ProjectsPage = () => {
         onSelectCategory={setSelectedCategory}
       />
 
-      <ProjectsGrid projects={filteredProjects} />
+      <ProjectsGrid
+        projects={filteredProjects.map((project) => ({
+          ...project,
+          tech: (project as any).tech || ["Not specified"], // ✅ fixes build
+        }))}
+      />
     </div>
   );
 };
